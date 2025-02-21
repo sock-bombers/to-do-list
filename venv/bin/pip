@@ -1,4 +1,4 @@
-#!/Users/shimshamsinha/todo-list-site/venv/bin/python3.12
+#!/Users/lmulder/todo-list-site/venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

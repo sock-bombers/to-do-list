@@ -13,9 +13,20 @@
             <li>
                 <input type="checkbox" id="{{ loop.index }}" name="taskCheckbox" value="{{ loop.index }}">
                 <label for="{{ loop.index }}">{{ task }}</label>
+                {% if 'Completed' in task %}
+                    <button type="button" onclick="deleteTask({{ loop.index }})">Delete</button>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+
+    <script>
+        function deleteTask(index) {
+            document.getElementById('taskCheckbox-' + index).checked = false;
+            document.forms[0].submit();
+        }
+    </script>
+
     <form method="POST" action="{{ url_for('add_task') }}">
         <label for="newTask">Add Task:</label>
         <input type="text" id="newTask" name="newTask" required>
