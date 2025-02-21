@@ -16,7 +16,7 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
 ## To add
 
 - Features
-    - Strikethrough on checked, move to bottom
+    - ~~Strikethrough on checked, move to bottom~~ [DONE]
     - Labelling/categorisation/tagging
     - Add date/time to tasks
         - Allow sorting by date/time

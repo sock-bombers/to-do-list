@@ -12,15 +12,15 @@
         {% for task in tasks %}
             <li>
                 <form method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
-                    <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task] }}">
-                    <input type="hidden" id="{{ loop.index0 }}" name="checkboxId" value="{{ loop.index0 }}">
-                    <input type="checkbox" id="{{ loop.index0 }}" name="taskCheckbox" value="{{ loop.index0 }}" {% if tasks[task] %}checked{% endif %} onchange="this.form.submit()">
+                    <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
+                    <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">
+                    <input type="checkbox" id="{{ task }}" name="taskCheckbox" value="{{ task }}" {% if tasks[task][1] %}checked{% endif %} onchange="this.form.submit()">
                 </form>
 
-                <label for="{{ loop.index0 }}">{{ task }}</label>
+                <label {% if tasks[task][1] %}style="text-decoration: line-through"{% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
 
                 <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
-                    <input type="hidden" name="taskIndex" value="{{ loop.index0 }}">
+                    <input type="hidden" name="taskIndex" value="{{ task }}">
                     <button type="submit">Delete</button>
                 </form>
             </li>
