@@ -11,12 +11,12 @@
     <ul>
         {% for task in tasks %}
             <li>
-                <input type="checkbox" id="{{ loop.index }}" name="taskCheckbox" value="{{ loop.index }}">
-                <label for="{{ loop.index }}">{{ task }}</label>
-                {% if 'Completed' in task %}
-                    <button type="button" onclick="deleteTask({{ loop.index }})">Delete</button>
-                {% endif %}
-            </li>
+                <input type="checkbox" id="{{ loop.index0 }}" name="taskCheckbox" value="{{ loop.index0 }}">
+                <label for="{{ loop.index0 }}">{{ task }}</label>
+                <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
+                    <input type="hidden" name="taskIndex" value="{{ loop.index0 }}">
+                    <button type="submit">Delete</button>
+                </form>            </li>
         {% endfor %}
     </ul>
 
