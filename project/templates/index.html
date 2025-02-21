@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>To-do list</title>
 </head>
 
@@ -11,21 +11,21 @@
     <ul>
         {% for task in tasks %}
             <li>
-                <input type="checkbox" id="{{ loop.index0 }}" name="taskCheckbox" value="{{ loop.index0 }}">
+                <form method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
+                    <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task] }}">
+                    <input type="hidden" id="{{ loop.index0 }}" name="checkboxId" value="{{ loop.index0 }}">
+                    <input type="checkbox" id="{{ loop.index0 }}" name="taskCheckbox" value="{{ loop.index0 }}" {% if tasks[task] %}checked{% endif %} onchange="this.form.submit()">
+                </form>
+
                 <label for="{{ loop.index0 }}">{{ task }}</label>
+
                 <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                     <input type="hidden" name="taskIndex" value="{{ loop.index0 }}">
                     <button type="submit">Delete</button>
-                </form>            </li>
+                </form>
+            </li>
         {% endfor %}
     </ul>
-
-    <script>
-        function deleteTask(index) {
-            document.getElementById('taskCheckbox-' + index).checked = false;
-            document.forms[0].submit();
-        }
-    </script>
 
     <form method="POST" action="{{ url_for('add_task') }}">
         <label for="newTask">Add Task:</label>
