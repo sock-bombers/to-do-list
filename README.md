@@ -34,4 +34,4 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
 
 ## Design ideas
 
-![UI design](sketch.svg)
+![UI design](https://raw.githubusercontent.com/shim-sham/todo-list-site/main/sketch.svg)
