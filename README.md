@@ -1,6 +1,7 @@
 # To-do list project
 
-This is a to-do list project created for Hack Club's Sock event, by @shim-sham, @Kirito139, and @LayanJethwa.
+This is a to-do list project created for Hack Club's Sock event, by @shim-sham,
+@Kirito139, and @LayanJethwa.
 
 We have used Python Flask for the backend, and vanilla HTML for the frontend.
 ## Demo
@@ -34,4 +35,5 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
 
 ## Design ideas
 
-![UI design](https://raw.githubusercontent.com/shim-sham/todo-list-site/main/sketch.svg)
+![UI
+design](https://raw.githubusercontent.com/shim-sham/todo-list-site/main/sketch.svg)
