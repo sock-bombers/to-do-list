@@ -1,9 +1,10 @@
 header { }
 body { }
 footer { }
-.list_item {
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: left;
-    border-top: 1px solid #ddd
-    flex-shrink: 0; /* prevent list items from collapsing */
-    width: 100%;
+    flex-direction: column;
+}
