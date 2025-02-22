@@ -14,6 +14,7 @@ tasks = {
     1: ["Task 2", 0, "Personal", "#33ff57"],
     2: ["Task 3", 0, "Urgent", "#ff33a8"]
 }
+
 current_index = len(tasks)
 
 @app.route('/')
@@ -45,7 +46,7 @@ def complete_tasks():
 @app.route('/delete', methods=['POST'])
 def delete_tasks():
     task_index = request.form.get('taskIndex')
-
+    
     if task_index is not None:
         index = int(task_index)
         if 0 <= index < current_index:
