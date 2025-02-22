@@ -1,9 +1,0 @@
-header { }
-body { }
-footer { }
-.list_item {
-    display: flex;
-    align-items: left;
-    border-top: 1px solid #ddd
-    flex-shrink: 0; /* prevent list items from collapsing */
-    width: 100%;
