@@ -1,13 +1,4 @@
-header { }
-body { }
-footer { }
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-}
+/*not in html yet
 .tag-dot {
     width: 12px;
     height: 12px;
@@ -20,33 +11,25 @@ ul {
 .tag-dot:hover {
     transform: scale(2);
 }
+*/
 
-.task-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-@import "https://www.nerdfonts.com/assets/css/webfont.css";
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9; /* Light gray background */
-    color: #333; /* Dark text color */
-    margin: 0;
-    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 90vh;
+    --task-size: 50; /* Change this variable to change the size of the task boxes, define all components within task box using this variable */
 }
 
 ul {
     list-style-type: none;
     padding: 0;
-    margin: 20px 0;
-    width: 90%;
-    max-width: 600px;
+    margin: 0;
+    width: 60vw;
 }
 
 li {
@@ -54,10 +37,11 @@ li {
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px 15px;
     margin-bottom: 10px;
+    height: calc(var(--task-size) * 1px)
 }
 
 input[type="checkbox"] {
@@ -65,69 +49,59 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
-label {
+#task-title {
+    font-size: 30px;
     flex-grow: 1;
     font-size: 16px;
 }
 
-label[style="text-decoration: line-through"] {
-    color: #888; /* Lighter color for completed tasks */
+#task-title[style="text-decoration: line-through"] {
+    color: #888;
 }
 
-form button {
-    background-color: transparent;
-    color: #ff6b6b;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
+#bin {
+    display: block;
+    float: right;
+    height: calc(var(--task-size)/1.5 * 1px);
 }
 
-form button:hover {
-    color: #ff4c4c; /* Darker red on hover */
-}
-
-/* Add Task Form Styling */
-form[action="{{ url_for('add_task') }}"] {
+#addtaskform {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
 
-form[action="{{ url_for('add_task') }}"] label {
-    margin-right: 10px; /* Space between label and input field */
+#add-task{
+    margin-right: 10px;
 }
 
-form[action="{{ url_for('add_task') }}"] input[type="text"] {
+#add-task-input {
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 8px;
     font-size: 14px;
 }
 
-form[action="{{ url_for('add_task') }}"] button {
-    background-color: #4caf50; /* Green background for add button */
-    color: #fff; /* White text color */
+#add-task-submit {
+    background-color: #4caf50;
+    color: #fff;
     border-radius: 5px;
     border: none;
     padding: 8px 12px;
     cursor: pointer;
+    &:hover {
+        background-color: #45a049;
+    }
 }
 
-form[action="{{ url_for('add_task') }}"] button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-/* Responsive Design for Smaller Screens */
+/* Responsive design for smaller screens */
 @media (max-width: 600px) {
     li {
-        flex-direction: column; /* Stack elements vertically on small screens */
-        align-items: flex-start; /* Align items to the left */
-        padding-bottom: 15px; /* Add spacing at the bottom of each task item */
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
         text-align: left; 
         gap : .5rem
-       
+    }
 }
-
