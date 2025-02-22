@@ -2,7 +2,18 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-tasks = {0:["task1",0],1:["task2",0],2:["task3",0]}
+tags = {
+    "Work": "#ff5733",
+    "Personal": "#33ff57",
+    "Urgent": "#ff33a8",
+}
+
+#  id: [task_name, completed, tag_name, tag_color]}
+tasks = {
+    0: ["Task 1", 0, "Work", "#ff5733"],
+    1: ["Task 2", 0, "Personal", "#33ff57"],
+    2: ["Task 3", 0, "Urgent", "#ff33a8"]
+}
 current_index = len(tasks)
 
 @app.route('/')
@@ -34,7 +45,7 @@ def complete_tasks():
 @app.route('/delete', methods=['POST'])
 def delete_tasks():
     task_index = request.form.get('taskIndex')
-    
+
     if task_index is not None:
         index = int(task_index)
         if 0 <= index < current_index:
