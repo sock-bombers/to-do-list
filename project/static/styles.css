@@ -8,3 +8,22 @@ ul {
     display: flex;
     flex-direction: column;
 }
+.tag-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.tag-dot:hover {
+    transform: scale(2);
+}
+
+.task-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
