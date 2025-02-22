@@ -24,9 +24,12 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
     - Description for tasks
     - Sub-tasks
 - Better UI
-    - Task design
-    - Button design
-    - Checkbox design
+    - ~~Task design~~ [DONE]
+    - ~~Button design~~ [DONE]
+    - ~~Checkbox design~~ [DONE]
+    - Dark mode
+    - Task checked animation
+    - Label design
 - Saving lists
     - Save in-browser (cookies)
     - Login/authentication system
@@ -35,5 +38,4 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
 
 ## Design ideas
 
-![UI
-design](https://raw.githubusercontent.com/shim-sham/todo-list-site/main/sketch.svg)
+![UI design](https://raw.githubusercontent.com/shim-sham/todo-list-site/main/sketch.svg)
