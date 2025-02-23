@@ -25,11 +25,18 @@ def index():
 @app.route('/add', methods=['POST'])
 def add_task():
     global current_index
-    new_task = request.form.get('newTask')
+    new_task = request.form.get('newTask') 
     selected_tag = request.form.get('taskTag')
-    tag_colour = tags.get(selected_tag, "#3498db") # light blue
+    new_tag = request.form.get('newTag')
+    new_tag_color = request.form.get('newTagColor', '#000000')
+    if new_tag:  
+        tags[new_tag] = new_tag_color
+        tag_name, tag_color = new_tag, new_tag_color
+    else:
+        tag_name, tag_color = selected_tag, tags.get(selected_tag, "#3498db")
+
     if new_task:
-        tasks[current_index] = [new_task, 0, selected_tag, tag_colour]
+        tasks[current_index] = [new_task, 0, tag_name, tag_color]
         current_index += 1
     return redirect(url_for('index'))
 
