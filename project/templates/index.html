@@ -22,7 +22,7 @@
 
                 <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through"{% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
                 <div class="tag-container">
-                    <span class="tag-dot"  style="background-color: '{{ tasks[task][3] }}';" title="{{ tasks[task][2] }}"></span>
+                    <span class="tag-dot"  style="background-color: {{ tasks[task][3] }};" title="{{ tasks[task][2] }}">{{ tasks[task][2] }}</span>
                 </div>
 
 
