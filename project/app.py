@@ -3,16 +3,16 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 tags = {
-    "Work": "#ff5733",
-    "Personal": "#33ff57",
-    "Urgent": "#ff33a8",
+    "Work": "#aae364",
+    "Personal": "#4e76d4",
+    "Urgent": "#cf0000",
 }
 
-#  id: [task_name, completed, tag_name, tag_color]}
+#  id: [task_name, completed, tag_name, tag_ur]}
 tasks = {
-    0: ["Task 1", 0, "Work", "#ff5733"],
-    1: ["Task 2", 0, "Personal", "#33ff57"],
-    2: ["Task 3", 0, "Urgent", "#ff33a8"]
+    0: ["Task 1", 0, "Work", "#aae364"],
+    1: ["Task 2", 0, "Personal", "#4e76d4"],
+    2: ["Task 3", 0, "Urgent", "#cf0000"]
 }
 
 current_index = len(tasks)
@@ -20,14 +20,16 @@ current_index = len(tasks)
 @app.route('/')
 def index():
     tasks_arg = {k: v for k, v in sorted(tasks.items(), key=lambda item: item[1][1])}
-    return render_template('index.html', tasks=tasks_arg)
+    return render_template('index.html', tasks=tasks_arg,tags=tags)
 
 @app.route('/add', methods=['POST'])
 def add_task():
     global current_index
     new_task = request.form.get('newTask')
+    selected_tag = request.form.get('taskTag')
+    tag_colour = tags.get(selected_tag, "#3498db") # light blue
     if new_task:
-        tasks[current_index] = [new_task,0]
+        tasks[current_index] = [new_task, 0, selected_tag, tag_colour]
         current_index += 1
     return redirect(url_for('index'))
 
@@ -50,7 +52,7 @@ def delete_tasks():
     if task_index is not None:
         index = int(task_index)
         if 0 <= index < current_index:
-            tasks.pop(index)
+            tasks.pop(index,None)
 
     return redirect(url_for('index'))
 

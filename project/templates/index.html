@@ -18,6 +18,10 @@
                 </form>
 
                 <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through"{% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
+                <div class="tag-container">
+                    <span class="tag-dot"  style="background-color: '{{ tasks[task][3] }}';" title="{{ tasks[task][2] }}"></span>
+                </div>
+
 
                 <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                     <input type="hidden" name="taskIndex" value="{{ task }}">
@@ -30,6 +34,18 @@
     <form id="addtaskform" method="POST" action="{{ url_for('add_task') }}">
         <label id="add-task" for="newTask">Add Task:</label>
         <input id="add-task-input" type="text" id="newTask" name="newTask" required>
+
+        <label for="taskTag">Choose a Tag:</label>
+        <select id="taskTag" name="taskTag">
+            <option value="">None</option>
+            {% for tag in tags.keys() %}
+                <option value="{{ tag }}">{{ tag }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="newTag"> Or Create New Tag:</label>
+        <input type="text" id="newTag" name="newTag" placeholder="New tag name">
+        <input type="color" id="newTagColor" name="newTagColor" value="#000000">
         <button id="add-task-submit" type="submit">Add</button>
     </form>
 </body>

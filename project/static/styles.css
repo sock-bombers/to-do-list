@@ -1,4 +1,7 @@
-/*not in html yet
+.tag-container {
+    margin-top: 4px;
+}
+
 .tag-dot {
     width: 12px;
     height: 12px;
@@ -11,7 +14,6 @@
 .tag-dot:hover {
     transform: scale(2);
 }
-*/
 
 body {
     font-family: Arial, sans-serif;
