@@ -26,14 +26,14 @@ body {
     --task-size: 50; /* Change this variable to change the size of the task boxes, define all components within task box using this variable */
 }
 
-ul {
+#task-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 60vw;
 }
 
-li {
+#task-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,6 +43,17 @@ li {
     padding: 10px 15px;
     margin-bottom: 10px;
     height: calc(var(--task-size) * 1px)
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    #task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        text-align: left; 
+        gap : .5rem
+    }
 }
 
 input[type="checkbox"] {
@@ -102,13 +113,30 @@ form button:hover {
     }
 }
 
-/* Responsive design for smaller screens */
-@media (max-width: 600px) {
-    li {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-bottom: 15px;
-        text-align: left; 
-        gap : .5rem
+.tag-container {
+    position: absolute;
+    margin-top: calc(var(--task-size)/1.1 * 1px);
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.tag-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    &:hover {
+        width: fit-content;
+        padding: 0 10px;
+        height: 20px;
+        border-radius: 10px;
     }
 }
