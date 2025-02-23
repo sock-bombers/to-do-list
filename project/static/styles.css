@@ -1,3 +1,4 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
 /*not in html yet
 .tag-dot {
     width: 12px;
@@ -48,6 +49,18 @@ input[type="checkbox"] {
     transform: scale(1.2);
     margin-right: 10px;
 }
+form button {
+    background-color: transparent;
+    color: #ff6b6b;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+form button:hover {
+    color: #ff4c4c; /* Darker red on hover */
+}
 
 #task-title {
     font-size: 30px;
@@ -57,12 +70,6 @@ input[type="checkbox"] {
 
 #task-title[style="text-decoration: line-through"] {
     color: #888;
-}
-
-#bin {
-    display: block;
-    float: right;
-    height: calc(var(--task-size)/1.5 * 1px);
 }
 
 #addtaskform {
