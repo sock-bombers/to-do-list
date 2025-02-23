@@ -8,11 +8,11 @@ tags = {
     "Urgent": "#cf0000",
 }
 
-#  id: [task_name, completed, tag_name, tag_ur]}
+#  id: [task_name, completed, [tag_names]]}
 tasks = {
-    0: ["Task 1", 0, "Work", "#aae364"],
-    1: ["Task 2", 0, "Personal", "#4e76d4"],
-    2: ["Task 3", 0, "Urgent", "#cf0000"]
+    0: ["Task 1", 0, ["Work", "Urgent"]],
+    1: ["Task 2", 0, ["Personal"]],
+    2: ["Task 3", 0, ["Urgent"]]
 }
 
 current_index = len(tasks)
