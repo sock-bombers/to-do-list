@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <ul>
+    <ul id="task-list">
         {% for task in tasks %}
-            <li>
+            <li id="task-item">
                 <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
                     <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
                     <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">
@@ -18,15 +18,19 @@
                 </form>
 
                 <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through"{% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
-                <div class="tag-container">
-                    <span class="tag-dot"  style="background-color: {{ tasks[task][3] }};" title="{{ tasks[task][2] }}">{{ tasks[task][2] }}</span>
-                </div>
-
 
                 <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                     <input type="hidden" name="taskIndex" value="{{ task }}">
                     <input type="image" id="bin" src="{{ url_for('static', filename='images/bin.png') }}" onmouseover="this.src='static/images/bin_dark.png';" onmouseout="this.src='static/images/bin.png';" onclick="this.form.submit()" role="button">
                 </form>
+
+                <ul class="tag-container">
+                    <li id="tag-item">
+                        {% for tag in tasks[task][2] %}
+                            <span class="tag-dot"  style="background-color: {{ tags[tag] }}" onmouseover="this.innerHTML='{{ tag }}';" onmouseout="this.innerHTML='{{ tag[0] }}';">{{ tag[0] }}</span>
+                        {% endfor %}
+                    </li>
+                </ul>
             </li>
         {% endfor %}
     </ul>
