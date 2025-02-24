@@ -1,29 +1,4 @@
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
-.tag-container {
-    margin-top: 4px;
-    display: inline-block;
-}
-.tag-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    text-align: center;
-    line-height: 20px;
-    color: white;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.tag-dot:hover {
-    width: 80px;
-    height: 20px;
-    border-radius: 10px;
-    
-
-}
 
 body {
     font-family: Arial, sans-serif;
@@ -85,7 +60,6 @@ form button:hover {
 }
 
 #task-title {
-    font-size: 30px;
     flex-grow: 1;
     font-size: 16px;
 }
@@ -147,7 +121,64 @@ form button:hover {
     &:hover {
         width: fit-content;
         padding: 0 10px;
+        padding-right: 25px;
         height: 20px;
         border-radius: 10px;
+    }
+}
+
+.tag-delete {
+    display: none;
+    position: absolute;
+    color: black;
+    margin-left: 5px;
+    margin-top: 1px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: #ff0000;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.tag-add {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.tag-add-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+    color: black;
+    background-color: #afafaf;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    &:hover {
+        background-color: #8a8a8a;
+    }
+}
+
+.tag-add-list {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    background-color: #d6d6d6;
+    border-radius: 5px;
+}
+
+#tag-add-item {
+    padding: 2px;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+        color: white;
     }
 }

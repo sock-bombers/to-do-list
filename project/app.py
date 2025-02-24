@@ -31,12 +31,12 @@ def add_task():
     new_tag_color = request.form.get('newTagColor', '#000000')
     if new_tag:  
         tags[new_tag] = new_tag_color
-        tag_name, tag_color = new_tag, new_tag_color
+        tag_name = new_tag
     else:
-        tag_name, tag_color = selected_tag, tags.get(selected_tag, "#3498db")
+        tag_name = selected_tag
 
     if new_task:
-        tasks[current_index] = [new_task, 0, tag_name, tag_color]
+        tasks[current_index] = [new_task, 0, [tag_name]]
         current_index += 1
     return redirect(url_for('index'))
 
@@ -60,6 +60,22 @@ def delete_tasks():
         index = int(task_index)
         if 0 <= index < current_index:
             tasks.pop(index,None)
+
+    return redirect(url_for('index'))
+
+@app.route('/add_tag', methods=['POST'])
+def add_tag():
+    tag = request.form.get('tagSelected')
+    task_index = int(request.form.get('taskIndex'))
+    tasks[task_index][2] += [tag]
+
+    return redirect(url_for('index'))
+
+@app.route('/delete_tag', methods=['POST'])
+def delete_tag():
+    tag = request.form.get('tagSelected')
+    task_index = int(request.form.get('taskIndex'))
+    tasks[task_index][2].remove(tag)
 
     return redirect(url_for('index'))
 
