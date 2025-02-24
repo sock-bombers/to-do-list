@@ -79,6 +79,17 @@ def delete_tag():
 
     return redirect(url_for('index'))
 
+@app.route('/create_tag', methods=['POST'])
+def create_tag():
+    tag = request.form.get('tagCreated')
+
+    colour = request.form.get('newTagColour')
+    tags[tag] = colour
+
+    print(tag, colour)
+
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -14,6 +14,7 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
 - Add tasks
 - Tick off tasks
 - Delete tasks
+- Add labels to tasks
 ## To add
 
 - Features

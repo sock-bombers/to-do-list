@@ -69,7 +69,14 @@ form button:hover {
 }
 
 #addtaskform {
-    display: flex;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#createtagform {
+    display: flexbox;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -87,6 +94,18 @@ form button:hover {
 }
 
 #add-task-submit {
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    &:hover {
+        background-color: #45a049;
+    }
+}
+
+#create-tag-submit {
     background-color: #4caf50;
     color: #fff;
     border-radius: 5px;
@@ -135,8 +154,9 @@ form button:hover {
     margin-top: 1px;
     width: 17px;
     height: 17px;
+    font-weight: bold;
     border-radius: 50%;
-    background-color: #ff0000;
+    background-color: white;
     border-color: black;
     border-style: solid;
     border-width: 1px;
