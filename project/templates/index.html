@@ -20,33 +20,30 @@
 
             <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through" {% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
 
-                <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
-                    <input type="hidden" name="taskIndex" value="{{ task }}">
-                    <button type="submit"><i class="nf nf-cod-trash" style="font-size: 20px;"></i></button>
-                </form>
+            <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
+                <input type="hidden" name="taskIndex" value="{{ task }}">
+                <button type="submit"><i class="nf nf-cod-trash" style="font-size: 20px;"></i></button>
+            </form>
 
-                <ul class="tag-container">
-                    <li id="tag-item">
-                        {% for tag in tasks[task][2] %}
-                            <div class="tag-dot" style="background-color: {{ tags[tag] }}" 
-                            onmouseover="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag }}';
-                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='inline';" 
-                            onmouseout="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag[0] }}';
+            <ul class="tag-container">
+                <li id="tag-item">
+                    {% for tag in tasks[task][2] %}
+                    <div class="tag-dot" style="background-color: {{ tags[tag] }}" onmouseover="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag }}';
+                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='inline';" onmouseout="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag[0] }}';
                                 document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='none';">
-                                    <span id="tag-text{{ tag }}{{ task }}">{{ tag[0] }}</span>
-                                    <form method="POST" id="deletetagform{{ tag }}{{ task }}" action="{{ url_for('delete_tag') }}" style="display:inline;">
-                                        <input type="hidden" name="tagSelected" value="{{ tag }}">
-                                        <input type="hidden" name="taskIndex" value="{{ task }}">
-                                        <span class="tag-delete" id="tag-delete{{ tag }}{{ task }}"
-                                        onclick="document.getElementById('deletetagform{{ tag }}{{ task }}').submit()">X</span>
-                                    </form>
-                            </div>
-                        {% endfor %}
-                        <form method="POST" id="addtagform{{ task }}" action="{{ url_for('add_tag') }}" style="display:inline;">
-                            <input type="hidden" name="tagSelected" id="tagSelected{{ task }}" value="">
+                        <span id="tag-text{{ tag }}{{ task }}">{{ tag[0] }}</span>
+                        <form method="POST" id="deletetagform{{ tag }}{{ task }}" action="{{ url_for('delete_tag') }}" style="display:inline;">
+                            <input type="hidden" name="tagSelected" value="{{ tag }}">
                             <input type="hidden" name="taskIndex" value="{{ task }}">
-                            <div class="tag-add" id="tagadd{{ task }}">
-                                <div class="tag-add-button" onclick="
+                            <span class="tag-delete" id="tag-delete{{ tag }}{{ task }}" onclick="document.getElementById('deletetagform{{ tag }}{{ task }}').submit()">X</span>
+                        </form>
+                    </div>
+                    {% endfor %}
+                    <form method="POST" id="addtagform{{ task }}" action="{{ url_for('add_tag') }}" style="display:inline;">
+                        <input type="hidden" name="tagSelected" id="tagSelected{{ task }}" value="">
+                        <input type="hidden" name="taskIndex" value="{{ task }}">
+                        <div class="tag-add" id="tagadd{{ task }}">
+                            <div class="tag-add-button" onclick="
                                     tagAdd = document.getElementById('tagadd{{ task }}')
                                     list = document.getElementById('tag-add-list{{ task }}')
                                     for (let taglist of document.getElementsByClassName('tag-add-list')) {
@@ -67,21 +64,19 @@
                                         tagAdd.style.position = 'relative'
                                     }
                                 ">+</div>
-                                <ul class="tag-add-list" id="tag-add-list{{ task }}">
-                                    {% for tag in tags.keys() %}
-                                        {% if tag not in tasks[task][2] %}
-                                            <li id="tag-add-item" style="background-color: {{ tags[tag] }}" onclick="
+                            <ul class="tag-add-list" id="tag-add-list{{ task }}">
+                                {% for tag in tags.keys() %} {% if tag not in tasks[task][2] %}
+                                <li id="tag-add-item" style="background-color: {{ tags[tag] }}" onclick="
                                                 document.getElementById('tagSelected{{ task }}').value = '{{ tag }}';
                                                 document.getElementById('addtagform{{ task }}').submit();
                                             ">{{ tag }}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-            </li>
+                                {% endif %} {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </li>
         {% endfor %}
     </ul>
 
