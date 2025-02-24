@@ -29,6 +29,7 @@ You can use the site at this link: [ADD WHEN DEPLOYED]
     - ~~Checkbox design~~ [DONE]
     - Dark mode
     - Task checked animation
+    - Added tasks go to top
     - Label design
 - Saving lists
     - Save in-browser (cookies)
