@@ -28,8 +28,10 @@
             <ul class="tag-container">
                 <li id="tag-item">
                     {% for tag in tasks[task][2] %}
-                    <div class="tag-dot" style="background-color: {{ tags[tag] }}" onmouseover="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag }}';
-                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='inline';" onmouseout="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag[0] }}';
+                    <div class="tag-dot" style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %}" 
+                                onmouseover="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag }}';
+                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='inline';" 
+                                onmouseout="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag[0] }}';
                                 document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='none';">
                         <span id="tag-text{{ tag }}{{ task }}">{{ tag[0] }}</span>
                         <form method="POST" id="deletetagform{{ tag }}{{ task }}" action="{{ url_for('delete_tag') }}" style="display:inline;">
@@ -66,9 +68,9 @@
                                 ">+</div>
                             <ul class="tag-add-list" id="tag-add-list{{ task }}">
                                 {% for tag in tags.keys() %} {% if tag not in tasks[task][2] %}
-                                <li id="tag-add-item" style="background-color: {{ tags[tag] }}" onclick="
-                                                document.getElementById('tagSelected{{ task }}').value = '{{ tag }}';
-                                                document.getElementById('addtagform{{ task }}').submit();
+                                <li id="tag-add-item" style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %};" 
+                                            onclick="document.getElementById('tagSelected{{ task }}').value = '{{ tag }}';
+                                            document.getElementById('addtagform{{ task }}').submit();
                                             ">{{ tag }}</li>
                                 {% endif %} {% endfor %}
                             </ul>

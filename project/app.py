@@ -2,6 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
+def colour_intensity(hex):
+  hex = hex.replace("#","")
+  return sum(tuple(int(hex[i:i+2], 16) for i in (0, 2, 4)))/3
+app.jinja_env.globals.update(colour_intensity = colour_intensity)
+
 tags = {
     "Work": "#aae364",
     "Personal": "#4e76d4",
@@ -26,17 +31,8 @@ def index():
 def add_task():
     global current_index
     new_task = request.form.get('newTask') 
-    selected_tag = request.form.get('taskTag')
-    new_tag = request.form.get('newTag')
-    new_tag_color = request.form.get('newTagColor', '#000000')
-    if new_tag:  
-        tags[new_tag] = new_tag_color
-        tag_name = new_tag
-    else:
-        tag_name = selected_tag
-
     if new_task:
-        tasks[current_index] = [new_task, 0, [tag_name]]
+        tasks[current_index] = [new_task, 0, []]
         current_index += 1
     return redirect(url_for('index'))
 

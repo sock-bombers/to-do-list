@@ -156,7 +156,6 @@ form button:hover {
     cursor: pointer;
     text-align: center;
     line-height: 20px;
-    color: white;
     font-size: 15px;
     transition: all 0.3s ease;
     position: relative;
@@ -222,7 +221,6 @@ form button:hover {
     border-radius: 5px;
     &:hover {
         cursor: pointer;
-        color: white;
     }
 }
 
@@ -233,5 +231,5 @@ form button:hover {
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 25px;
 }
