@@ -225,3 +225,13 @@ form button:hover {
         color: white;
     }
 }
+
+#dark-mode-toggle {
+    background-color: transparent;
+    color: var(--text-col);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
