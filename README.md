@@ -28,10 +28,10 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
     - ~~Task design~~ [DONE]
     - ~~Button design~~ [DONE]
     - ~~Checkbox design~~ [DONE]
-    - Dark mode
+    - ~~Dark mode~~ [DONE]
     - Task checked animation
-    - Added tasks go to top
-    - Label design
+    - ~~Added tasks go to top~~ [DONE]
+    - ~~Label design~~ [DONE]
 - Saving lists
     - Save in-browser (cookies)
     - Login/authentication system

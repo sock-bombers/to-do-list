@@ -13,18 +13,26 @@ tags = {
     "Urgent": "#cf0000",
 }
 
-#  id: [task_name, completed, [tag_names]]}
+#  id: [task_name, completed, [tag_names], recently_added]}
 tasks = {
-    0: ["Task 1", 0, ["Work", "Urgent"]],
-    1: ["Task 2", 0, ["Personal"]],
-    2: ["Task 3", 0, ["Urgent"]]
+    0: ["Task 1", 0, ["Work", "Urgent"], 0],
+    1: ["Task 2", 0, ["Personal"], 0],
+    2: ["Task 3", 0, ["Urgent"], 0]
 }
+
+def reset_recently_added(task):
+  tasks[task][3] = 0
+app.jinja_env.globals.update(reset_recently_added = reset_recently_added)
 
 current_index = len(tasks)
 
 @app.route('/')
 def index():
-    tasks_arg = {k: v for k, v in sorted(tasks.items(), key=lambda item: item[1][1])}
+    print(tasks.items())
+    checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
+    unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0}.items())}
+    tasks_arg = unchecked_tasks.copy()
+    tasks_arg.update(checked_tasks)
     return render_template('index.html', tasks=tasks_arg,tags=tags)
 
 @app.route('/add', methods=['POST'])
@@ -32,7 +40,7 @@ def add_task():
     global current_index
     new_task = request.form.get('newTask') 
     if new_task:
-        tasks[current_index] = [new_task, 0, []]
+        tasks[current_index] = [new_task, 0, [], 1]
         current_index += 1
     return redirect(url_for('index'))
 

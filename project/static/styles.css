@@ -23,6 +23,17 @@
     --danger-col: #ff4c4c;
     --danger-hov: #ff6b6b;
 }
+
+@keyframes fade-in-anim {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes fade-out-anim {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: var(--bg-col);
@@ -42,7 +53,7 @@ body {
     width: 60vw;
 }
 
-#task-item {
+.task-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,12 +62,12 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px 15px;
     margin-bottom: 10px;
-    height: calc(var(--task-size) * 1px)
+    height: calc(var(--task-size) * 1px);
 }
 
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
-    #task-item {
+    .task-item {
         flex-direction: column;
         align-items: flex-start;
         padding-bottom: 15px;
@@ -69,7 +80,7 @@ input[type="checkbox"] {
     transform: scale(1.2);
     margin-right: 10px;
 }
-form button {
+#bin-button {
     background-color: transparent;
     color: var(--danger-col);
     border: none;
@@ -77,9 +88,9 @@ form button {
     padding: 5px 10px;
     cursor: pointer;
     font-size: 14px;
-}
-form button:hover {
-    color: var(--danger-hov); /* Darker red on hover */
+    &:hover {
+        color: var(--danger-hov);
+    }
 }
 
 #task-title {
@@ -187,7 +198,7 @@ form button:hover {
 .tag-add {
     display: inline-block;
     position: relative;
-    z-index: 1;
+    transition: all 0.3s ease;
 }
 
 .tag-add-button {

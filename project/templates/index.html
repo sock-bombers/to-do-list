@@ -11,7 +11,7 @@
 <body>
     <ul id="task-list">
         {% for task in tasks %}
-        <li id="task-item">
+        <li id="task-item{{ task }}" class="task-item" style="animation: {% if tasks[task][3] == 1 %} fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} '' {% endif %}">
             <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
                 <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
                 <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">
@@ -22,7 +22,9 @@
 
             <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                 <input type="hidden" name="taskIndex" value="{{ task }}">
-                <button type="submit"><i class="nf nf-cod-trash" style="font-size: 20px;"></i></button>
+                <button type="submit" id="bin-button" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.4s ease'">
+                    <i class="nf nf-cod-trash" style="font-size: 20px;"></i>
+                </button>
             </form>
 
             <ul class="tag-container">
@@ -44,7 +46,7 @@
                     <form method="POST" id="addtagform{{ task }}" action="{{ url_for('add_tag') }}" style="display:inline;">
                         <input type="hidden" name="tagSelected" id="tagSelected{{ task }}" value="">
                         <input type="hidden" name="taskIndex" value="{{ task }}">
-                        <div class="tag-add" id="tagadd{{ task }}">
+                        <div class="tag-add" id="tagadd{{ task }}" style="z-index: {{ loop.revindex }}">
                             <div class="tag-add-button" onclick="
                                     tagAdd = document.getElementById('tagadd{{ task }}')
                                     list = document.getElementById('tag-add-list{{ task }}')
