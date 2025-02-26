@@ -9,14 +9,21 @@
 </head>
 
 <body>
-    <form method="POST" action="{{ url_for('filter_tasks') }}">
-        <label for="tags-filter-list" id="tags-filter-text">Filter by tag:</label>
-        <select id="tags-filter-list" name="tagsFilterList" onchange="this.form.submit()">
-            <option value="" {% if filtered_tag == "" %} selected {% endif %}></option>
-            {% for tag in tags %}<option style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %};"
-            value="{{ tag }}" {% if filtered_tag == tag %} selected {% endif %}>{{ tag }}</option>{% endfor %}
-        </select>
-    </form>
+    <div id="top-options">
+        <form method="POST" action="{{ url_for('filter_tasks') }}">
+            <label for="tags-filter-list" id="tags-filter-text">Filter by tag:</label>
+            <select id="tags-filter-list" name="tagsFilterList" onchange="this.form.submit()">
+                <option value="" {% if filtered_tag == "" %} selected {% endif %}></option>
+                {% for tag in tags %}<option style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %};"
+                value="{{ tag }}" {% if filtered_tag == tag %} selected {% endif %}>{{ tag }}</option>{% endfor %}
+            </select>
+        </form>
+
+        <form method="POST" action="{{ url_for('sort_by_datetime') }}">
+            <label for="datetime-sort-checkbox" id="datetime-sort-text">Sort by date and time:</label>
+            <input type="checkbox" id="datetime-sort-checkbox" name="datetimeSortCheckbox" onchange="this.form.submit()", {%if sort_datetime %}checked{% endif %}>
+        </form>
+    </div>
 
     <ul id="task-list">
         {% for task in tasks %}
@@ -28,6 +35,11 @@
             </form>
 
             <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through" {% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
+
+            <form method="POST" action="{{ url_for('update_time') }}" style="display:inline;">
+                <input type="hidden" name="taskIndex" value="{{ task }}">
+                <input type="datetime-local" name="timeSelector" onchange="this.form.submit()" {% if tasks[task][4].year != 1971 %} value="{{ tasks[task][4] }}" {% endif %}>
+            </form>
 
             <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                 <input type="hidden" name="taskIndex" value="{{ task }}">

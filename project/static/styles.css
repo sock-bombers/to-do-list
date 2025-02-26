@@ -263,3 +263,18 @@ input[type="checkbox"] {
 #tags-filter-list {
     transform: translateX(10px);
 }
+
+#datetime-sort-text {
+    display: inline-block;
+    transform: translateX(10px);
+    margin-left: -30vw;
+    margin-bottom: 20px;
+}
+
+#datetime-sort-checkbox {
+    transform: translateX(10px);
+}
+
+#top-options {
+    display: flexbox;
+}

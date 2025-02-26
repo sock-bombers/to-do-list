@@ -21,8 +21,8 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
 - Features
     - ~~Strikethrough on checked, move to bottom~~ [DONE]
     - ~~Labelling/categorisation/tagging~~ [DONE]
-    - Add date/time to tasks
-        - Allow sorting by date/time
+    - ~~Add date/time to tasks~~ [DONE]
+        - ~~Allow sorting by date/time~~ [DONE]
     - Description for tasks
     - Sub-tasks
 - Better UI

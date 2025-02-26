@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import time
+import datetime
 
 app = Flask(__name__)
 
@@ -16,11 +17,11 @@ tags = {
 
 filtered_tag = ""
 
-#  id: [task_name, completed, [tag_names], recently_added]}
+#  id: [task_name, completed, [tag_names], recently_added], datetime}
 tasks = {
-    0: ["Task 1", 0, ["Work", "Urgent"], 0],
-    1: ["Task 2", 0, ["Personal"], 0],
-    2: ["Task 3", 0, ["Urgent"], 0]
+    0: ["Task 1", 0, ["Work", "Urgent"], 0, datetime.datetime(1971,1,1,0,0)],
+    1: ["Task 2", 0, ["Personal"], 0, datetime.datetime(1971,1,1,0,0)],
+    2: ["Task 3", 0, ["Urgent"], 0, datetime.datetime(1971,1,1,0,0)]
 }
 
 def reset_recently_added(task):
@@ -29,24 +30,32 @@ app.jinja_env.globals.update(reset_recently_added = reset_recently_added)
 
 current_index = len(tasks)
 
+sort = 0
+
 @app.route('/')
 def index():
-    if filtered_tag == "":
-        checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
-        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0}.items())}
+    global sort
+    print(tasks[0][4])
+    if sort:
+        checked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 1}.items())}
+        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 0}.items())}
     else:
-        checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1 and filtered_tag in v[2]}.items())}
-        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0 and filtered_tag in v[2]}.items())}
+        if filtered_tag == "":
+            checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
+            unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0}.items())}
+        else:
+            checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1 and filtered_tag in v[2]}.items())}
+            unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0 and filtered_tag in v[2]}.items())}
     tasks_arg = unchecked_tasks.copy()
     tasks_arg.update(checked_tasks)
-    return render_template('index.html', tasks=tasks_arg,tags=tags,filtered_tag=filtered_tag)
+    return render_template('index.html', tasks=tasks_arg,tags=tags,filtered_tag=filtered_tag,sort_datetime=sort)
 
 @app.route('/add', methods=['POST'])
 def add_task():
     global current_index
     new_task = request.form.get('newTask') 
     if new_task:
-        tasks[current_index] = [new_task, 0, [], 1]
+        tasks[current_index] = [new_task, 0, [], 1, datetime.datetime(1971,1,1,0,0)]
         current_index += 1
     return redirect(url_for('index'))
 
@@ -109,6 +118,29 @@ def create_tag():
 def filter_tasks():
     global filtered_tag
     filtered_tag = request.form.get('tagsFilterList')
+
+    return redirect(url_for('index'))
+
+@app.route('/update_time', methods=['POST'])
+def update_time():
+    time = request.form.get('timeSelector')
+    index = int(request.form.get('taskIndex'))
+    time = time.split('T')
+    time[0] = time[0].split('-')
+    time[1] = time[1].split(':')
+    time[0] += time[1]
+    time = datetime.datetime(*map(int, time[0]))
+    tasks[index][4] = time
+    return redirect(url_for('index'))
+
+@app.route('/sort_by_datetime', methods=['POST'])
+def sort_by_datetime():
+    global sort
+    checked = request.form.get('datetimeSortCheckbox')
+    if checked == "on":
+        sort = 1
+    else:
+        sort = 0
 
     return redirect(url_for('index'))
 
