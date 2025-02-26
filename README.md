@@ -37,7 +37,7 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
     - Save in-browser (cookies)
     - Login/authentication system
     - Importing/exporting (sharing)
-- Vercel deployment
+- ~~Vercel deployment~~ [DONE]
 
 ## Design ideas
 
