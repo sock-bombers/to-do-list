@@ -1,11 +1,12 @@
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
 :root {
     --bg-col: #f4f4f9;
+    --bg-hov: #d3d3da;
     --text-col: #333;
     --task-bg: #fff;
     --shadow-col: rgba(0, 0, 0, 0.1);
     --border-radius: 20px;
-    --task-size: 50px;
+    --task-size: 50;
     --primary-col: #4caf50;
     --primary-hov: #45a049;
     --danger-col: #ff6b6b;
@@ -15,6 +16,7 @@
 
 .dark-mode {
     --bg-col: #1e1e1e;
+    --bg-hov: #424141;
     --text-col: #ddd;
     --task-bg: #2c2c2c;
     --primary-col: #6dcf70;
@@ -43,7 +45,6 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 90vh;
-    --task-size: 50; /* Change this variable to change the size of the task boxes, define all components within task box using this variable */
 }
 
 #task-list {
@@ -65,11 +66,10 @@ body {
     height: calc(var(--task-size) * 1px);
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 600px) {
     .task-item {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
         padding-bottom: 15px;
         text-align: left; 
         gap : .5rem
@@ -77,8 +77,10 @@ body {
 }
 
 input[type="checkbox"] {
+    flex-grow: 1;
     transform: scale(1.2);
     margin-right: 10px;
+    margin-bottom: 25px;
 }
 #bin-button {
     background-color: transparent;
@@ -96,6 +98,7 @@ input[type="checkbox"] {
 #task-title {
     flex-grow: 1;
     font-size: 16px;
+    margin-bottom: 20px;
 }
 
 #task-title[style="text-decoration: line-through"] {
@@ -157,6 +160,7 @@ input[type="checkbox"] {
     display: inline-block;
     list-style-type: none;
     padding-left: 0;
+    margin-bottom: 10px;
 }
 
 .tag-dot {
@@ -243,5 +247,8 @@ input[type="checkbox"] {
     padding: 5px 10px;
     cursor: pointer;
     font-size: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    &:hover {
+        background-color: var(--bg-hov);
+    }
 }
