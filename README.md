@@ -14,7 +14,8 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
 - Add tasks
 - Tick off tasks
 - Delete tasks
-- Add labels to tasks
+- Add tags to tasks
+- Filter by tag
 ## To add
 
 - Features
@@ -29,7 +30,7 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
     - ~~Button design~~ [DONE]
     - ~~Checkbox design~~ [DONE]
     - ~~Dark mode~~ [DONE]
-    - Task checked animation
+    - ~~Task checked animation~~ [DONE]
     - ~~Added tasks go to top~~ [DONE]
     - ~~Label design~~ [DONE]
 - Saving lists

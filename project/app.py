@@ -14,6 +14,8 @@ tags = {
     "Urgent": "#cf0000",
 }
 
+filtered_tag = ""
+
 #  id: [task_name, completed, [tag_names], recently_added]}
 tasks = {
     0: ["Task 1", 0, ["Work", "Urgent"], 0],
@@ -29,12 +31,15 @@ current_index = len(tasks)
 
 @app.route('/')
 def index():
-    print(tasks.items())
-    checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
-    unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0}.items())}
+    if filtered_tag == "":
+        checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
+        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0}.items())}
+    else:
+        checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1 and filtered_tag in v[2]}.items())}
+        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0 and filtered_tag in v[2]}.items())}
     tasks_arg = unchecked_tasks.copy()
     tasks_arg.update(checked_tasks)
-    return render_template('index.html', tasks=tasks_arg,tags=tags)
+    return render_template('index.html', tasks=tasks_arg,tags=tags,filtered_tag=filtered_tag)
 
 @app.route('/add', methods=['POST'])
 def add_task():
@@ -97,6 +102,13 @@ def create_tag():
     tags[tag] = colour
 
     print(tag, colour)
+
+    return redirect(url_for('index'))
+
+@app.route('/filter_tasks', methods=['POST'])
+def filter_tasks():
+    global filtered_tag
+    filtered_tag = request.form.get('tagsFilterList')
 
     return redirect(url_for('index'))
 

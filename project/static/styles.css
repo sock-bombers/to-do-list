@@ -252,3 +252,14 @@ input[type="checkbox"] {
         background-color: var(--bg-hov);
     }
 }
+
+#tags-filter-text {
+    display: inline-block;
+    transform: translateX(10px);
+    margin-left: -30vw;
+    margin-bottom: 20px;
+}
+
+#tags-filter-list {
+    transform: translateX(10px);
+}

@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <form method="POST" action="{{ url_for('filter_tasks') }}">
+        <label for="tags-filter-list" id="tags-filter-text">Filter by tag:</label>
+        <select id="tags-filter-list" name="tagsFilterList" onchange="this.form.submit()">
+            <option value="" {% if filtered_tag == "" %} selected {% endif %}></option>
+            {% for tag in tags %}<option style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %};"
+            value="{{ tag }}" {% if filtered_tag == tag %} selected {% endif %}>{{ tag }}</option>{% endfor %}
+        </select>
+    </form>
+
     <ul id="task-list">
         {% for task in tasks %}
         <li id="task-item{{ task }}" class="task-item" style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
