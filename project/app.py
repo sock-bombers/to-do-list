@@ -35,10 +35,13 @@ sort = 0
 @app.route('/')
 def index():
     global sort
-    print(tasks[0][4])
     if sort:
-        checked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 1}.items())}
-        unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 0}.items())}
+        if filtered_tag == "":
+            checked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 1}.items())}
+            unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 0}.items())}
+        else:
+            checked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 1 and filtered_tag in v[2]}.items())}
+            unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in sorted(tasks.items(), key = lambda item: item[1][4].timestamp()) if v[1] == 0 and filtered_tag in v[2]}.items())}
     else:
         if filtered_tag == "":
             checked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 1}.items())}
