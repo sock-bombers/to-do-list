@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import time
 
 app = Flask(__name__)
 
@@ -53,6 +54,9 @@ def complete_tasks():
                 tasks[index][1] = 0
             else:
                 tasks[index][1] = 1
+            tasks[index][3] = 1
+
+    time.sleep(0.5)
 
     return redirect(url_for('index'))
 
@@ -64,6 +68,8 @@ def delete_tasks():
         index = int(task_index)
         if 0 <= index < current_index:
             tasks.pop(index,None)
+
+    time.sleep(0.5)
 
     return redirect(url_for('index'))
 

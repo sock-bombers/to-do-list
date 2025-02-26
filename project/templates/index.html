@@ -11,18 +11,18 @@
 <body>
     <ul id="task-list">
         {% for task in tasks %}
-        <li id="task-item{{ task }}" class="task-item" style="animation: {% if tasks[task][3] == 1 %} fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} '' {% endif %}">
+        <li id="task-item{{ task }}" class="task-item" style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
             <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
                 <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
                 <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">
-                <input type="checkbox" id="{{ task }}" name="taskCheckbox" value="{{ task }}" {%if tasks[task][1] %}checked{% endif %} onchange="this.form.submit()">
+                <input type="checkbox" id="{{ task }}" name="taskCheckbox" value="{{ task }}" {%if tasks[task][1] %}checked{% endif %} onchange="this.form.submit()" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
             </form>
 
             <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through" {% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
 
             <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
                 <input type="hidden" name="taskIndex" value="{{ task }}">
-                <button type="submit" id="bin-button" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.4s ease'">
+                <button type="submit" id="bin-button" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
                     <i class="nf nf-cod-trash" style="font-size: 20px;"></i>
                 </button>
             </form>
