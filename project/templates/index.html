@@ -56,7 +56,7 @@
 
             <form method="POST" action="{{ url_for('update_time') }}" style="display:inline;"> <!-- Form for selecting date/time for task -->
                 <input type="hidden" name="taskIndex" value="{{ task }}">
-                <input type="datetime-local" name="timeSelector" onchange="this.form.submit()" {% if tasks[task][4].year != 1971 %} value="{{ tasks[task][4] }}" {% endif %}>
+                <input type="datetime-local" id="time-selector" name="timeSelector" onchange="this.form.submit()" {% if tasks[task][4].year != 1971 %} value="{{ tasks[task][4] }}" {% endif %}>
             </form>
 
             <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;"> <!-- Form for deleting tasks -->

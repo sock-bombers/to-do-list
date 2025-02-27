@@ -122,7 +122,7 @@ body {
             }
 
         #task-description {
-            margin-left: 50px;
+            margin-left: 40px;
         }
 
             .description-text {
@@ -130,8 +130,20 @@ body {
                 max-width: 39vw;
                 margin-top: auto;
                 margin-left: 5px;
-                transform: translateY(-7px);
+                transform: translateY(-10px);
+                background-color: var(--task-bg);
+                color: var(--text-col);
+                font-family: inherit;
+                font-size: inherit;
             }
+
+        #time-selector {
+            background-color: var(--task-bg);
+            color: var(--text-col);
+            font-family: inherit;
+            font-size: 15px;
+            border: 2px solid var(--bg-hov);
+        }
 
         #bin-button {
             background-color: transparent;
