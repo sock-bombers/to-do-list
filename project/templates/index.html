@@ -29,6 +29,9 @@
         {% for task in tasks %}
         <li id="task-item{{ task }}" class="task-item"  
         style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
+
+            <i class="nf nf-cod-indent" id="drag-button"></i>
+
             <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;"> <!-- Form for marking tasks as complete -->
                 <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
                 <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">

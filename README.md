@@ -3,7 +3,7 @@
 This is a to-do list project created for Hack Club's Sock event, by @shim-sham,
 @Kirito139, and @LayanJethwa.
 
-We have used Python Flask for the backend, and vanilla HTML for the frontend.
+We have used Python Flask for the backend, and vanilla HTML, CSS and JS for the frontend.
 ## Demo
 
 You can use the site at this link: https://to-do-list-g5a1.onrender.com/
@@ -12,10 +12,13 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
 ## Features
 
 - Add tasks
-- Tick off tasks
-- Delete tasks
+    - Tick off tasks
+    - Delete tasks
 - Add tags to tasks
-- Filter by tag
+    - Filter by tag
+- Add date/time to tasks
+    - Sort by date/time
+- Add descriptions to tasks
 ## To add
 
 - Features

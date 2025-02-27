@@ -103,6 +103,15 @@ body {
         }
     }
 
+        #drag-button {
+            font-size: 20px; 
+            margin-bottom: 25px; 
+            margin-right: 10px;
+            &:hover {
+                cursor: grab;
+            };
+        }
+
         input[type="checkbox"] {
             flex-grow: 1;
             transform: scale(1.2);
