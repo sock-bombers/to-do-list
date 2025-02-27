@@ -10,7 +10,7 @@
 
 <body>
     <div id="top-options">
-        <form method="POST" action="{{ url_for('filter_tasks') }}">
+        <form method="POST" action="{{ url_for('filter_tasks') }}"> <!-- Form for filtering by task -->
             <label for="tags-filter-list" id="tags-filter-text">Filter by tag:</label>
             <select id="tags-filter-list" name="tagsFilterList" onchange="this.form.submit()">
                 <option value="" {% if filtered_tag == "" %} selected {% endif %}></option>
@@ -19,16 +19,17 @@
             </select>
         </form>
 
-        <form method="POST" action="{{ url_for('sort_by_datetime') }}">
+        <form method="POST" action="{{ url_for('sort_by_datetime') }}"> <!-- Form for sorting by date/time -->
             <label for="datetime-sort-checkbox" id="datetime-sort-text">Sort by date and time:</label>
             <input type="checkbox" id="datetime-sort-checkbox" name="datetimeSortCheckbox" onchange="this.form.submit()", {%if sort_datetime %}checked{% endif %}>
         </form>
     </div>
 
-    <ul id="task-list">
+    <ul id="task-list"> <!-- List of all tasks -->
         {% for task in tasks %}
-        <li id="task-item{{ task }}" class="task-item" style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
-            <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;">
+        <li id="task-item{{ task }}" class="task-item"  
+        style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
+            <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;"> <!-- Form for marking tasks as complete -->
                 <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">
                 <input type="hidden" id="{{ task }}" name="checkboxId" value="{{ task }}">
                 <input type="checkbox" id="{{ task }}" name="taskCheckbox" value="{{ task }}" {%if tasks[task][1] %}checked{% endif %} onchange="this.form.submit()" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
@@ -36,38 +37,42 @@
 
             <label id="task-title" {% if tasks[task][1] %}style="text-decoration: line-through" {% endif %} for="{{ task }}">{{ tasks[task][0] }}</label>
 
-            <form method="POST" action="{{ url_for('update_time') }}" style="display:inline;">
+            <form method="POST" action="{{ url_for('update_time') }}" style="display:inline;"> <!-- Form for selecting date/time for task -->
                 <input type="hidden" name="taskIndex" value="{{ task }}">
                 <input type="datetime-local" name="timeSelector" onchange="this.form.submit()" {% if tasks[task][4].year != 1971 %} value="{{ tasks[task][4] }}" {% endif %}>
             </form>
 
-            <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;">
+            <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;"> <!-- Form for deleting tasks -->
                 <input type="hidden" name="taskIndex" value="{{ task }}">
                 <button type="submit" id="bin-button" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
                     <i class="nf nf-cod-trash" style="font-size: 20px;"></i>
                 </button>
             </form>
 
-            <ul class="tag-container">
+            <ul class="tag-container"> <!-- List of all tags for each task -->
                 <li id="tag-item">
+
                     {% for tag in tasks[task][2] %}
                     <div class="tag-dot" style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %}" 
                                 onmouseover="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag }}';
                                 document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='inline';" 
                                 onmouseout="document.getElementById('tag-text{{ tag }}{{ task }}').textContent='{{ tag[0] }}';
-                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='none';">
+                                document.getElementById('tag-delete{{ tag }}{{ task }}').style.display='none';"> <!-- Main tag rendering logic -->
                         <span id="tag-text{{ tag }}{{ task }}">{{ tag[0] }}</span>
-                        <form method="POST" id="deletetagform{{ tag }}{{ task }}" action="{{ url_for('delete_tag') }}" style="display:inline;">
+
+                        <form method="POST" id="deletetagform{{ tag }}{{ task }}" action="{{ url_for('delete_tag') }}" style="display:inline;"> <!-- Form for deleting tags -->
                             <input type="hidden" name="tagSelected" value="{{ tag }}">
                             <input type="hidden" name="taskIndex" value="{{ task }}">
                             <span class="tag-delete" id="tag-delete{{ tag }}{{ task }}" onclick="document.getElementById('deletetagform{{ tag }}{{ task }}').submit()">X</span>
                         </form>
+
                     </div>
                     {% endfor %}
-                    <form method="POST" id="addtagform{{ task }}" action="{{ url_for('add_tag') }}" style="display:inline;">
+
+                    <form method="POST" id="addtagform{{ task }}" action="{{ url_for('add_tag') }}" style="display:inline;"> <!-- Form for adding tags -->
                         <input type="hidden" name="tagSelected" id="tagSelected{{ task }}" value="">
                         <input type="hidden" name="taskIndex" value="{{ task }}">
-                        <div class="tag-add" id="tagadd{{ task }}" style="z-index: {{ loop.revindex }}">
+                        <div class="tag-add" id="tagadd{{ task }}" style="z-index: {{ loop.revindex }}"> <!-- Logic for changing tag positions on tag add -->
                             <div class="tag-add-button" onclick="
                                     tagAdd = document.getElementById('tagadd{{ task }}')
                                     list = document.getElementById('tag-add-list{{ task }}')
@@ -89,7 +94,8 @@
                                         tagAdd.style.position = 'relative'
                                     }
                                 ">+</div>
-                            <ul class="tag-add-list" id="tag-add-list{{ task }}">
+
+                            <ul class="tag-add-list" id="tag-add-list{{ task }}"> <!-- List of tags that can be added to a task -->
                                 {% for tag in tags.keys() %} {% if tag not in tasks[task][2] %}
                                 <li id="tag-add-item" style="background-color: {{ tags[tag] }}; color: {% if colour_intensity(tags[tag]) > 127 %} black {% else %} white {% endif %};" 
                                             onclick="document.getElementById('tagSelected{{ task }}').value = '{{ tag }}';
@@ -97,21 +103,23 @@
                                             ">{{ tag }}</li>
                                 {% endif %} {% endfor %}
                             </ul>
+
                         </div>
                     </form>
+
                 </li>
             </ul>
         </li>
         {% endfor %}
     </ul>
 
-    <form id="addtaskform" method="POST" action="{{ url_for('add_task') }}">
+    <form id="addtaskform" method="POST" action="{{ url_for('add_task') }}"> <!-- Form to add new tasks -->
         <label id="add-task" for="newTask">Add Task:</label>
         <input id="add-task-input" type="text" id="newTask" name="newTask" required>
         <button id="add-task-submit" type="submit">Add</button>
     </form>
 
-    <form id="createtagform" method="POST" action="{{ url_for('create_tag') }}">
+    <form id="createtagform" method="POST" action="{{ url_for('create_tag') }}"> <!-- Form to add new tags or edit existing ones -->
         <label for="taskTag">Add a tag or edit an existing one:</label>
         <input type="text" list="tags-list" id="tagCreated" name="tagCreated" required onchange="
         tagsList = {{ tags | safe }};
@@ -132,12 +140,13 @@
     </form>
 </body>
 
-<footer>
+<footer> <!-- Page footer text -->
     <p>Created by <a href="https://github.com/Kirito139" style="color: inherit;">Kirito139</a>, <a href="https://github.com/shim-sham">shim-sham</a>, and <a href="https://github.com/LayanJethwa">LayanJethwa</a> for Sock, a Hack Club YSWS</p>
 </footer>
-<button id="dark-mode-toggle"><i class="nf nf-md-theme_light_dark"></i></button>
 
-<script>
+<button id="dark-mode-toggle"><i class="nf nf-md-theme_light_dark"></i></button> <!-- Dark mode toggle with logic -->
+
+<script> 
     const toggleButton = document.getElementById("dark-mode-toggle");
     toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");

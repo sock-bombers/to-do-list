@@ -4,11 +4,6 @@ import datetime
 
 app = Flask(__name__)
 
-def colour_intensity(hex):
-  hex = hex.replace("#","")
-  return sum(tuple(int(hex[i:i+2], 16) for i in (0, 2, 4)))/3
-app.jinja_env.globals.update(colour_intensity = colour_intensity)
-
 tags = {
     "Work": "#aae364",
     "Personal": "#4e76d4",
@@ -16,21 +11,28 @@ tags = {
 }
 
 filtered_tag = ""
+default_datetime = datetime.datetime(1971,1,1,0,0)
+sort = 0
 
 #  id: [task_name, completed, [tag_names], recently_added], datetime}
 tasks = {
-    0: ["Task 1", 0, ["Work", "Urgent"], 0, datetime.datetime(1971,1,1,0,0)],
-    1: ["Task 2", 0, ["Personal"], 0, datetime.datetime(1971,1,1,0,0)],
-    2: ["Task 3", 0, ["Urgent"], 0, datetime.datetime(1971,1,1,0,0)]
+    0: ["Task 1", 0, ["Work", "Urgent"], 0, default_datetime],
+    1: ["Task 2", 0, ["Personal"], 0, default_datetime],
+    2: ["Task 3", 0, ["Urgent"], 0, default_datetime]
 }
+
+current_index = len(tasks)
+
+
+def colour_intensity(hex):
+  hex = hex.replace("#","")
+  return sum(tuple(int(hex[i:i+2], 16) for i in (0, 2, 4)))/3
+app.jinja_env.globals.update(colour_intensity = colour_intensity)
 
 def reset_recently_added(task):
   tasks[task][3] = 0
 app.jinja_env.globals.update(reset_recently_added = reset_recently_added)
 
-current_index = len(tasks)
-
-sort = 0
 
 @app.route('/')
 def index():
@@ -58,7 +60,7 @@ def add_task():
     global current_index
     new_task = request.form.get('newTask') 
     if new_task:
-        tasks[current_index] = [new_task, 0, [], 1, datetime.datetime(1971,1,1,0,0)]
+        tasks[current_index] = [new_task, 0, [], 1, default_datetime]
         current_index += 1
     return redirect(url_for('index'))
 
