@@ -90,6 +90,7 @@ body {
         padding: 10px 15px;
         margin-bottom: 10px;
         height: calc(var(--task-size) * 1px);
+        text-align: left;
     }
 
     @media (max-width: 600px) {
@@ -113,10 +114,23 @@ body {
             flex-grow: 1;
             font-size: 16px;
             margin-bottom: 20px;
+            display: flex;
         }
 
             #task-title[style="text-decoration: line-through"] {
                 color: #888;
+            }
+
+        #task-description {
+            margin-left: 50px;
+        }
+
+            .description-text {
+                position: absolute;
+                max-width: 39vw;
+                margin-top: auto;
+                margin-left: 5px;
+                transform: translateY(-7px);
             }
 
         #bin-button {

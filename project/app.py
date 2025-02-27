@@ -12,13 +12,14 @@ tags = {
 
 filtered_tag = ""
 default_datetime = datetime.datetime(1971,1,1,0,0)
+default_description = "Enter description here: "
 sort = 0
 
-#  id: [task_name, completed, [tag_names], recently_added], datetime}
+#  id: [task_name, completed, [tag_names], recently_added], datetime, description, description_rows}
 tasks = {
-    0: ["Task 1", 0, ["Work", "Urgent"], 0, default_datetime],
-    1: ["Task 2", 0, ["Personal"], 0, default_datetime],
-    2: ["Task 3", 0, ["Urgent"], 0, default_datetime]
+    0: ["Task 1", 0, ["Work", "Urgent"], 0, default_datetime, "Task 1 now has a description", 1],
+    1: ["Task 2", 0, ["Personal"], 0, default_datetime, default_description, 1],
+    2: ["Task 3", 0, ["Urgent"], 0, default_datetime, default_description, 1]
 }
 
 current_index = len(tasks)
@@ -60,7 +61,7 @@ def add_task():
     global current_index
     new_task = request.form.get('newTask') 
     if new_task:
-        tasks[current_index] = [new_task, 0, [], 1, default_datetime]
+        tasks[current_index] = [new_task, 0, [], 1, default_datetime, default_description, 1]
         current_index += 1
     return redirect(url_for('index'))
 
@@ -149,6 +150,19 @@ def sort_by_datetime():
 
     return redirect(url_for('index'))
 
+@app.route('/edit_description', methods=['POST'])
+def edit_description():
+    text = request.form.get('descriptionText')
+    index = int(request.form.get('taskIndex'))
+    rows = int(request.form.get('descriptionRows'))
+
+    tasks[index][5] = text
+    if text == "":
+        tasks[index][5] = default_description
+        
+    tasks[index][6] = rows
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
