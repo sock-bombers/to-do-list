@@ -38,6 +38,7 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
     - Login/authentication system
     - Importing/exporting (sharing)
 - ~~Vercel deployment~~ [DONE]
+- Code commenting/readability improvements
 
 ## Design ideas
 
