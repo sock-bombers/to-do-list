@@ -23,7 +23,7 @@ You can use the site at this link: https://to-do-list-g5a1.onrender.com/
     - ~~Labelling/categorisation/tagging~~ [DONE]
     - ~~Add date/time to tasks~~ [DONE]
         - ~~Allow sorting by date/time~~ [DONE]
-    - Description for tasks
+    - ~~Description for tasks~~ [DONE]
     - Sub-tasks
 - Better UI
     - ~~Task design~~ [DONE]
