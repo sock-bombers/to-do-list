@@ -24,6 +24,7 @@ oauth.register(
     },
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
+
 tags = {
     "Work": "#aae364",
     "Personal": "#4e76d4",
@@ -53,6 +54,7 @@ app.jinja_env.globals.update(colour_intensity = colour_intensity)
 def reset_recently_added(task):
   tasks[task][3] = 0
 app.jinja_env.globals.update(reset_recently_added = reset_recently_added)
+
 #log in routes
 @app.route("/login")
 def login():
