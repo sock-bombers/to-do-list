@@ -9,6 +9,14 @@
 </head>
 
 <body>
+    {% if session %}
+        <h1>Welcome {{session.userinfo.name}}!</h1>
+        <p><a href="/logout">Logout</a></p>
+
+    {% else %}
+        <h1>Welcome Guest</h1>
+        <p><a href="/login">Login</a></p>
+    {% endif %}
     <div id="top-options">
         <form method="POST" action="{{ url_for('filter_tasks') }}"> <!-- Form for filtering by task -->
             <label for="tags-filter-list" id="tags-filter-text">Filter by tag:</label>
@@ -64,7 +72,7 @@
 
             <form method="POST" action="{{ url_for('delete_tasks') }}" style="display:inline;"> <!-- Form for deleting tasks -->
                 <input type="hidden" name="taskIndex" value="{{ task }}">
-                <button type="submit" id="bin-button" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
+                <button type="submit" id="bin-button" style="z-index: 1" onclick="document.getElementById('task-item{{ task }}').style.animation = 'fade-out-anim 0.7s ease'">
                     <i class="nf nf-cod-trash" style="font-size: 20px;"></i>
                 </button>
             </form>

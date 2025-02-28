@@ -1,9 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for
 import time
 import datetime
+import json
+from os import environ as env
+from urllib.parse import quote_plus, urlencode
 
+from authlib.integrations.flask_client import OAuth
+from dotenv import find_dotenv, load_dotenv
+from flask import Flask, redirect, render_template, session, url_for
 app = Flask(__name__)
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+app.secret_key = env.get("APP_SECRET_KEY")
+oauth = OAuth(app)
 
+oauth.register(
+    "auth0",
+    client_id=env.get("AUTH0_CLIENT_ID"),
+    client_secret=env.get("AUTH0_CLIENT_SECRET"),
+    client_kwargs={
+        "scope": "openid profile email",
+    },
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
+)
 tags = {
     "Work": "#aae364",
     "Personal": "#4e76d4",
@@ -33,8 +53,35 @@ app.jinja_env.globals.update(colour_intensity = colour_intensity)
 def reset_recently_added(task):
   tasks[task][3] = 0
 app.jinja_env.globals.update(reset_recently_added = reset_recently_added)
+#log in routes
+@app.route("/login")
+def login():
+    return oauth.auth0.authorize_redirect(
+        redirect_uri=url_for("callback", _external=True)
+    )
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(
+        "https://" + env.get("AUTH0_DOMAIN")
+        + "/v2/logout?"
+        + urlencode(
+            {
+                "returnTo": url_for("index", _external=True),
+                "client_id": env.get("AUTH0_CLIENT_ID"),
+            },
+            quote_via=quote_plus,
+        )
+    )
 
+@app.route("/callback", methods=["GET", "POST"])
+def callback():
+    token = oauth.auth0.authorize_access_token()
+    session["user"] = token
+    return redirect("/")
+
+#other routes
 @app.route('/')
 def index():
     global sort
@@ -54,7 +101,7 @@ def index():
             unchecked_tasks = {k: v for k, v in reversed({k: v for k, v in tasks.items() if v[1] == 0 and filtered_tag in v[2]}.items())}
     tasks_arg = unchecked_tasks.copy()
     tasks_arg.update(checked_tasks)
-    return render_template('index.html', tasks=tasks_arg,tags=tags,filtered_tag=filtered_tag,sort_datetime=sort)
+    return render_template('index.html', tasks=tasks_arg,tags=tags,filtered_tag=filtered_tag,sort_datetime=sort,session=session.get('user'), pretty=json.dumps(session.get('user'), indent=4))
 
 @app.route('/add', methods=['POST'])
 def add_task():
@@ -165,4 +212,4 @@ def edit_description():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0", port=env.get("PORT", 3000))
