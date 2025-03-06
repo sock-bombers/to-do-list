@@ -10,11 +10,11 @@
 
 <body>
     {% if session %}
-        <h1>Welcome {{session.userinfo.name}}!</h1>
-        <p><a href="/logout">Logout</a></p>
+        <h1>Welcome, {{session.userinfo.name}}!</h1>
+        <p><a class="auth-button" href="/logout">Logout</a></p>
     {% else %}
-        <h1>Welcome Guest</h1>
-        <p><a href="/login">Login</a></p>
+        <h1>Welcome, Guest!</h1>
+        <p><a class="auth-button" href="/login">Login</a></p>
     {% endif %}
 
     <div id="top-options">
@@ -38,7 +38,6 @@
     <ul id="task-list"> <!-- List of all tasks -->
         {% for task in tasks %}
         <li id="task-item{{ task }}" class="task-item" style="{% if tasks[task][3] == 1 %} animation: fade-in-anim 2s ease {{ reset_recently_added(task) }} {% else %} opacity: 1 {% endif %}">
-            <i class="nf nf-cod-indent" id="drag-button"></i>
 
             <form name="checkform{{ task }}" method="POST" action="{{ url_for('complete_tasks') }}" style="display:inline;"> <!-- Form for marking tasks as complete -->
                 <input type="hidden" id="currentlyChecked" name="currentlyChecked" value="{{ tasks[task][1] }}">

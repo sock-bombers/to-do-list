@@ -47,6 +47,19 @@ body {
     min-height: 90vh;
 }
 
+.auth-button {
+    background-color: var(--primary-col);
+    color: var(--task-bg);
+    border-radius: 5px;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+        background-color: var(--primary-hov);
+    }
+}
+
 #top-options {
     display: flexbox;
 }
@@ -102,15 +115,6 @@ body {
             gap : .5rem;
         }
     }
-
-        #drag-button {
-            font-size: 20px; 
-            margin-bottom: 25px; 
-            margin-right: 10px;
-            &:hover {
-                cursor: grab;
-            };
-        }
 
         input[type="checkbox"] {
             flex-grow: 1;
