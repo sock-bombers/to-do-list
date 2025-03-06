@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-from flask_restful import Api, Resource
 from authlib.integrations.flask_client import OAuth
-from functools import wraps
 import time
 import datetime
 import json

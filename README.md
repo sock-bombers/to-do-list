@@ -15,6 +15,7 @@ You can use the site at: https://to-do-list-g5a1.onrender.com/
 - Adding and filtering by tags
 - Adding date/time to tasks, and sorting tasks by date/time
 - Task descriptions
+- Login and save data
 
 ## TODO:
 
@@ -36,10 +37,10 @@ You can use the site at: https://to-do-list-g5a1.onrender.com/
     - ~~Label design~~ [DONE]
 - Saving lists
     - Save in-browser (cookies)
-    - Login/authentication system
+    - ~~Login/authentication system~~ [DONE]
     - Importing/exporting (sharing)
 - ~~Vercel deployment~~ [DONE]
-- Code commenting/readability improvements
+- ~~Code commenting/readability improvements~~ [DONE]
 
 ## Design ideas
 
