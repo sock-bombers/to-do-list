@@ -8,7 +8,7 @@ We have used Python Flask for the backend, and vanilla HTML, CSS and JS for the 
 
 You can use the site at: https://to-do-list-g5a1.onrender.com/
 
-![Screenshot](LINK_TO_SCREENSHOT)
+![Screenshot](https://github.com/sock-bombers/to-do-list/blob/main/screenshot.png)
 ## Features
 
 - Add, tick off, and delete tasks
