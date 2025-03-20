@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <button id="dark-mode-toggle"><i class="nf nf-md-theme_light_dark"></i></button> <!-- Dark mode toggle with logic -->
+    
     {% if session %}
         <h1>Welcome, {{session.userinfo.name}}!</h1>
         <p><a class="auth-button" href="/logout">Logout</a></p>
@@ -177,8 +179,6 @@
 <footer> <!-- Page footer text -->
     <p>Created by <a href="https://github.com/Kirito139">Kirito139</a>, <a href="https://github.com/shim-sham">shim-sham</a>, and <a href="https://github.com/LayanJethwa">LayanJethwa</a> for Sock, a Hack Club YSWS</p>
 </footer>
-
-<button id="dark-mode-toggle"><i class="nf nf-md-theme_light_dark"></i></button> <!-- Dark mode toggle with logic -->
 
 <script> 
     const toggleButton = document.getElementById("dark-mode-toggle");

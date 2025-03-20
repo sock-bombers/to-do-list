@@ -310,6 +310,10 @@ body {
     }
 
 #dark-mode-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
     background-color: transparent;
     color: var(--text-col);
     border: none;
