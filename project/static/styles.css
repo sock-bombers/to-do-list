@@ -11,6 +11,7 @@
     --primary-hov: #45a049;
     --danger-col: #ff6b6b;
     --danger-hov: #ff4c4c;
+    --link-col: #0004ff;
 }
 
 
@@ -23,6 +24,7 @@
     --primary-hov: #5bbf5f;
     --danger-col: #ff4c4c;
     --danger-hov: #ff6b6b;
+    --link-col: #00aaff;
 }
 
 @keyframes fade-in-anim {
@@ -319,4 +321,8 @@ body {
     &:hover {
         background-color: var(--bg-hov);
     }
+}
+
+footer a{
+    color: var(--link-col);
 }
